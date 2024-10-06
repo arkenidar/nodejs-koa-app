@@ -1,0 +1,15 @@
+home
+<hr>
+<a href="/public/about.html">about</a>
+<hr>
+<a href="/public/user.html">user</a>
+<hr>
+<script type="module">
+import resources from "/public/js/resources.js"
+globalThis.resources = resources
+</script>
+<a href="/public/login.json">login.json</a>
+<button onclick="resources.applyLoginToken()">apply login token</button>
+<hr>
+<a href="/protected/resource.json">protected resource</a>
+<button onclick="resources.getProtectedResource()">get resource</button>
