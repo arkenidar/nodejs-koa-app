@@ -31,7 +31,24 @@ router.get('/', async (ctx, next) => {
   // ctx.router available
   //ctx.body = "Hello World from KoaJS app !\n"
   await ctx.render("user", { username: "darcan" })
-});
+})
+// ability : json web token ( jwt )
+// https://chatgpt.com/c/6701811d-24a4-800a-acc6-f8bb055aef6c
+import jwt from "koa-jwt"
+import jsonwebtoken from "jsonwebtoken"
+const secret = 'your-secret-key'
+// Protect routes with JWT
+app.use(jwt({ secret }).unless({ path: [/^\/login/] }))
+// Route for login
+router.get('/login', (ctx) => {
+  const user = { id: 1, username: 'admin' }
+  const token = jsonwebtoken.sign(user, secret)
+  ctx.body = { token }
+})
+// Protected route
+router.get('/protected', (ctx) => {
+  ctx.body = 'Protected resource is now accessed!'
+})
 app.use(router.routes())
 
 // ability : advice and explain
